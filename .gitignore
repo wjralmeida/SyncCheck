@@ -1,0 +1,13 @@
+# Relatorios gerados (contem dados pessoais)
+SyncCheck_*.csv
+SyncCheck_*.html
+!docs/exemplo/*.html
+
+# Pacotes
+*.zip
+*.nupkg
+
+# Sistema
+Thumbs.db
+.DS_Store
+.vscode/

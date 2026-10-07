@@ -1,0 +1,36 @@
+name: Publicar na PowerShell Gallery
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validar manifesto e versao
+        shell: pwsh
+        run: |
+          $m = Test-ModuleManifest ./src/SyncCheck/SyncCheck.psd1
+          $tag = '${{ github.event.release.tag_name }}'.TrimStart('v')
+          if ($m.Version.ToString() -ne $tag) {
+            throw "Tag da release ($tag) diferente do ModuleVersion ($($m.Version))."
+          }
+          if (Select-String -Path ./src/SyncCheck/SyncCheck.psm1 -Pattern '[^\x00-\x7F]') {
+            throw 'SyncCheck.psm1 contem caracteres nao ASCII.'
+          }
+
+      - name: Analise estatica
+        shell: pwsh
+        run: |
+          Install-Module PSScriptAnalyzer -Force -Scope CurrentUser
+          $err = Invoke-ScriptAnalyzer -Path ./src/SyncCheck -Recurse -Severity Error
+          if ($err) { $err | Format-Table -AutoSize; throw 'PSScriptAnalyzer encontrou erros.' }
+
+      - name: Publicar
+        shell: pwsh
+        env:
+          PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
+        run: Publish-Module -Path ./src/SyncCheck -NuGetApiKey $env:PSGALLERY_API_KEY -Verbose
