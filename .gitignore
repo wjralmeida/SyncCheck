@@ -11,3 +11,6 @@ SyncCheck_*.html
 Thumbs.db
 .DS_Store
 .vscode/
+
+# Instrucoes locais do Claude Code (mantidas fora do repositorio)
+CLAUDE.md
