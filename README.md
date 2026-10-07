@@ -24,7 +24,11 @@ Nasceu como alternativa gratuita e de código aberto às verificações que o Id
   - `SyncCheck_<CLIENTE>_<data>.csv`: um item por linha, separado por `;`, abre direto no Excel em pt-BR;
   - `SyncCheck_<CLIENTE>_<data>.html`: relatório com resumo, ambiente, sufixos, resumo por regra e lista filtrável.
 
-Veja um [relatório de exemplo](docs/exemplo/relatorio-exemplo.html), gerado com dados fictícios. Baixe o arquivo e abra no navegador.
+### Exemplo do relatório HTML
+
+[![Relatório HTML do SyncCheck gerado com dados fictícios](docs/exemplo/relatorio-exemplo.png)](docs/exemplo/relatorio-exemplo.png)
+
+Relatório gerado com dados fictícios (domínio de exemplo `contoso`). Para navegar na versão interativa, com filtro por texto e severidade, baixe o [arquivo HTML de exemplo](docs/exemplo/relatorio-exemplo.html) e abra no navegador.
 
 ## O que a ferramenta **não** faz
 
